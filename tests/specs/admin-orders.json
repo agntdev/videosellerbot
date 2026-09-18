@@ -1,0 +1,4 @@
+[
+  { "name": "orders requires owner access", "steps": [{ "send": { "text": "/orders" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Owner access isn't set up yet." } }] }] },
+  { "name": "redelivery requires owner access", "steps": [{ "send": { "text": "/redeliver" }, "expect": [{ "method": "sendMessage", "payload": { "text": "Owner access isn't set up yet." } }] }] }
+]

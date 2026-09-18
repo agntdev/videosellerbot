@@ -31,7 +31,10 @@ export type OwnerAwareCtx = {
   env?: Record<string, unknown> | null;
   from?: { id: number } | undefined;
   chat?: { id: number } | undefined;
-  reply: (text: string, ...args: unknown[]) => unknown | Promise<unknown>;
+  // grammY's second argument is a method-specific union; `any` keeps this
+  // narrow helper assignable to real grammY contexts without weakening callers.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  reply: (text: string, ...args: any[]) => unknown | Promise<unknown>;
   answerCallbackQuery?: (
     opts?: { text?: string; show_alert?: boolean },
   ) => unknown | Promise<unknown>;

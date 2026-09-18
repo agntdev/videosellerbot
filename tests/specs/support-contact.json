@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Show owner contact info and quick FAQ; offer 'Contact owner' button that opens a PM or sends a support message to admin"
+              "text": "Поддержка пока не настроена. Попробуйте ещё раз позже."
             }
           }
         ],

@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Begin checkout for the selected product (opens Telegram invoice)"
+              "text": "Не нашли это видео — откройте каталог ещё раз."
             }
           }
         ],

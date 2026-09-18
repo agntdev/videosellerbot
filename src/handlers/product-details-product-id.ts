@@ -1,17 +1,21 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { inlineButton, inlineKeyboard } from "../toolkit/index.js";
+import { productById } from "../domain.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
-// Menu: wire this into /start via registerMainMenuItem({ label: "Details", data: "product:details:<product_id>" }) if the toolkit exposes it.
+const composer = new Composer<Ctx>();
 
-const composer = new Composer();
-
-composer.callbackQuery("product:details:<product_id>", async (ctx) => {
+composer.callbackQuery(/^product:details:(.+)$/, async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.reply("Show full product description and Buy button");
+  const product = productById(ctx.match[1]);
+  if (!product || !product.visible) {
+    await ctx.reply("Не нашли это видео. Откройте каталог ещё раз.");
+    return;
+  }
+  await ctx.reply(
+    `${product.title}\n\n${product.fullDescription}\n\nРазмер файла: ${Math.round(product.fileSizeBytes / 1_000_000)} МБ.\nЦена: ${product.priceStars} ⭐`,
+    { reply_markup: inlineKeyboard([[inlineButton("Купить", `product:buy:${product.id}`)], [inlineButton("⬅️ В каталог", "menu:main")]]) },
+  );
 });
 
 export default composer;

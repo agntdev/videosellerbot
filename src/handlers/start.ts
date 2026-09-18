@@ -1,24 +1,29 @@
 import { Composer } from "grammy";
 import type { Ctx } from "../bot.js";
-import { mainMenuKeyboard } from "../toolkit/index.js";
+import { inlineButton, inlineKeyboard } from "../toolkit/index.js";
+import { PRODUCTS } from "../domain.js";
 
-// The /start handler renders the bot's MAIN MENU — the primary way users operate
-// a button-first bot. A feature adds its own button by calling
-// `registerMainMenuItem(...)` in its own `src/handlers/<slug>.ts`; this handler
-// renders whatever is registered (plus a Help button), so you do NOT edit this
-// file to add a feature. Send ONE message — no placeholder line above the menu.
 const composer = new Composer<Ctx>();
+const WELCOME = "👋 Добро пожаловать! Выберите короткое видео:";
 
-const WELCOME = "👋 Welcome! Tap a button below to get started.";
+function catalogKeyboard() {
+  const rows = PRODUCTS.filter((product) => product.visible).flatMap((product) => [
+    [inlineButton(`Подробнее · ${product.title}`, `product:details:${product.id}`), inlineButton(`Купить · ${product.priceStars} ⭐`, `product:buy:${product.id}`)],
+  ]);
+  rows.push([inlineButton("Поддержка", "support:contact"), inlineButton("Обновить", "menu:main")]);
+  rows.push([inlineButton("❓ Помощь", "menu:help")]);
+  return inlineKeyboard(rows);
+}
 
-composer.command("start", async (ctx) => {
-  await ctx.reply(WELCOME, { reply_markup: mainMenuKeyboard() });
-});
+async function showCatalog(ctx: Ctx, edit = false) {
+  if (edit) await ctx.editMessageText(WELCOME, { reply_markup: catalogKeyboard() });
+  else await ctx.reply(WELCOME, { reply_markup: catalogKeyboard() });
+}
 
-// "Back to menu" — re-render the main menu in place from any sub-view.
+composer.command("start", async (ctx) => showCatalog(ctx));
 composer.callbackQuery("menu:main", async (ctx) => {
   await ctx.answerCallbackQuery();
-  await ctx.editMessageText(WELCOME, { reply_markup: mainMenuKeyboard() });
+  await showCatalog(ctx, true);
 });
 
 export default composer;

@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Show owner contact info and quick FAQ; offer 'Contact owner' button that opens a PM or sends a support message to admin"
+              "text": "Если нужна помощь с оплатой или скачиванием, напишите владельцу. Оплата проходит через Telegram Stars."
             }
           }
         ],

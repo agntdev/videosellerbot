@@ -5,14 +5,12 @@
       {
         "expect": [
           {
-            "method": "sendMessage",
-            "payload": {
-              "text": "Begin checkout for the selected product (opens Telegram invoice)"
-            }
+            "method": "sendInvoice",
+            "payload": { "currency": "XTR", "prices": [{ "label": "Закат над городом", "amount": 25 }] }
           }
         ],
         "send": {
-          "callback": "product:buy:\u003cproduct_id\u003e"
+          "callback": "product:buy:sunset"
         }
       }
     ]

@@ -7,12 +7,12 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Show full product description and Buy button"
+              "text": "Закат над городом\n\nМягкий городской закат для вдохновения, сторис или спокойной паузы.\n\nРазмер файла: 8 МБ.\nЦена: 25 ⭐"
             }
           }
         ],
         "send": {
-          "callback": "product:details:\u003cproduct_id\u003e"
+          "callback": "product:details:sunset"
         }
       }
     ]

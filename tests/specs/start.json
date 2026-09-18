@@ -7,7 +7,7 @@
         "expect": [
           {
             "method": "sendMessage",
-            "payload": { "text": "👋 Welcome! Tap a button below to get started." }
+            "payload": { "text": "Выберите короткое видео:\n\nУтренний свет\nКороткое видео для спокойного начала дня.\n⭐ 25\n\nДождь в городе\nАтмосферный городской кадр на каждый день.\n⭐ 35" }
           }
         ]
       }

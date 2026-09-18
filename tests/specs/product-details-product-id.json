@@ -7,7 +7,7 @@
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Show full product description and Buy button"
+              "text": "Не нашли это видео — откройте каталог ещё раз."
             }
           }
         ],

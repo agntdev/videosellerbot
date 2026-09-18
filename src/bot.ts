@@ -6,10 +6,15 @@ import type { StorageAdapter } from "grammy";
 // bot grows. Durable domain data must NOT live here — use the toolkit's
 // persistent storage (see AGENTS.md).
 export interface Session {
-  // example: step?: "awaiting_amount";
+  // The toolkit persists this object (Redis in Node deployments and a Durable
+  // Object in Workers). Shop data is kept here as an explicit, indexed record
+  // set so a restart does not lose an order.
+  shop?: import("./shop.js").ShopState;
+  adminPriceProductId?: string;
+  adminVideoProductId?: string;
 }
 
-export type Ctx = BotContext<Session>;
+export type Ctx = BotContext<Session> & { env?: Record<string, unknown> };
 
 /**
  * BuildBotOptions lets a runtime-specific ENTRY POINT (never a feature handler)
